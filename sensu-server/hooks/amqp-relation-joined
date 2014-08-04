@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eux
+
+relation-set username=$(config-get rabbitmq-user)
+relation-set vhost=$(config-get rabbitmq-vhost)
+
+juju-log "amqp-joined: requesting credentials"

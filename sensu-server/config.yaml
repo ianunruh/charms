@@ -1,0 +1,9 @@
+options:
+  rabbitmq-user:
+    type: string
+    description: Username used to connect to RabbitMQ
+    default: sensu
+  rabbitmq-vhost:
+    type: string
+    description: Virtual host to use on RabbitMQ
+    default: sensu

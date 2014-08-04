@@ -1,0 +1,41 @@
+#!/bin/bash
+set -eux
+
+juju-log "amqp-changed: remote unit: $JUJU_REMOTE_UNIT"
+
+rabbit_vhost=$(config-get rabbitmq-vhost)
+rabbit_user=$(config-get rabbitmq-user)
+rabbit_host=$(relation-get private-address)
+rabbit_pass=$(relation-get password)
+
+if [[ -z $rabbit_host ]] || [[ -z $rabbit_pass ]]; then
+  juju-log "amqp-changed: private address or password not set"
+  exit 0
+fi
+
+clustered=$(relation-get clustered)
+if [[ -n $clustered ]]; then
+  juju-log "amqp-changed: configuring for HA RabbitMQ"
+  rabbit_vip=$(relation-get vip)
+
+  if [[ -z $rabbit_vip ]]; then
+    juju-log "amqp-changed: clustered but no VIP available"
+    exit 0
+  fi
+
+  rabbit_host=$rabbit_vip
+fi
+
+cat > /etc/sensu/conf.d/rabbitmq.json <<EOF
+{
+  "rabbitmq": {
+    "host": "$rabbit_host",
+    "port": 5672,
+    "vhost": "$rabbit_vhost",
+    "user": "$rabbit_user",
+    "password": "$rabbit_password"
+  }
+}
+EOF
+
+service sensu-server status && service sensu-server restart || service sensu-server start

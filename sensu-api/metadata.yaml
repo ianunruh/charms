@@ -1,0 +1,15 @@
+name: sensu-api
+summary: The open source monitoring framework
+maintainer: Ian Unruh <ianunruh@gmail.com>
+
+description: |
+  <Multi-line description here>
+
+categories:
+  - applications
+
+subordinate: false
+
+requires:
+  db:
+    interface: redis

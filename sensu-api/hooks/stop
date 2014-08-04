@@ -1,0 +1,2 @@
+#!/bin/bash
+service sensu-api stop || exit 0

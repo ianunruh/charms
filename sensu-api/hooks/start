@@ -1,0 +1,2 @@
+#!/bin/bash
+service sensu-api status || service sensu-api start

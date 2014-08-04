@@ -1,0 +1,23 @@
+#!/bin/bash
+set -eux
+
+juju-log "db-changed: remote unit: $JUJU_REMOTE_UNIT"
+
+redis_host=$(relation-get hostname)
+redis_port=$(relation-get port)
+
+if [[ -z $redis_host ]] || [[ -z $redis_port ]]; then
+  juju-log "db-changed: hostname or port not set"
+  exit 0
+fi
+
+cat > /etc/sensu/conf.d/redis.json <<EOF
+{
+  "redis": {
+    "host": "$redis_host",
+    "port": $redis_port
+  }
+}
+EOF
+
+service sensu-api status && service sensu-api restart || service sensu-api start
