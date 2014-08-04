@@ -6,3 +6,5 @@ apt-get update -qq
 apt-get install -yqq git sensu
 
 update-rc.d sensu-server defaults
+
+mkdir -p /etc/sensu/conf.d/generated

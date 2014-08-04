@@ -11,7 +11,7 @@ if [[ -z $redis_host ]] || [[ -z $redis_port ]]; then
   exit 0
 fi
 
-cat > /etc/sensu/conf.d/redis.json <<EOF
+cat > /etc/sensu/conf.d/generated/redis.json <<EOF
 {
   "redis": {
     "host": "$redis_host",
@@ -20,4 +20,4 @@ cat > /etc/sensu/conf.d/redis.json <<EOF
 }
 EOF
 
-service sensu-api status && service sensu-api restart || service sensu-api start
+service sensu-api restart || exit 0

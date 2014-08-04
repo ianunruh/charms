@@ -1,2 +1,24 @@
 #!/bin/bash
-# config-changed occurs everytime a new configuration value is updated (juju set)
+set -eux
+
+api_host=$(unit-get private-address)
+api_port=$(config-get port)
+api_user=$(config-get user)
+api_password=$(cat /etc/sensu/conf.d/generated/api-password)
+api_bind=$(config-get bind)
+
+cat > /etc/sensu/conf.d/generated/api.json <<EOF
+{
+  "api": {
+    "host": "$api_host",
+    "port": $api_port,
+    "user": "$api_user",
+    "password": "$api_password",
+    "bind": "$api_bind"
+  }
+}
+EOF
+
+open-port $api_port
+
+service sensu-api restart || exit 0

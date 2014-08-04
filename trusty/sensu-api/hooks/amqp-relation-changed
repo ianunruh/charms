@@ -38,4 +38,4 @@ cat > /etc/sensu/conf.d/generated/rabbitmq.json <<EOF
 }
 EOF
 
-service sensu-server restart || exit 0
+service sensu-api restart || exit 0

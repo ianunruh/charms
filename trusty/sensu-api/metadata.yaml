@@ -10,6 +10,12 @@ categories:
 
 subordinate: false
 
+provides:
+  api:
+    interface: http
+
 requires:
+  amqp:
+    interface: rabbitmq
   db:
     interface: redis

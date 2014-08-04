@@ -1,0 +1,21 @@
+options:
+  port:
+    type: int
+    description: Port to bind to
+    default: 4567
+  bind:
+    type: string
+    description: Address to bind to
+    default: 0.0.0.0
+  user:
+    type: string
+    description: Username for authentication
+    default: admin
+  rabbitmq-user:
+    type: string
+    description: Username used to connect to RabbitMQ
+    default: sensu
+  rabbitmq-vhost:
+    type: string
+    description: Virtual host to use on RabbitMQ
+    default: sensu

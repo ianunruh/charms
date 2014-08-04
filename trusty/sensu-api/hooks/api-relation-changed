@@ -1,0 +1,5 @@
+#!/bin/bash
+relation-set hostname=$(unit-get private-address)
+relation-set port=$(config-get port)
+relation-set user=$(config-get user)
+relation-set password=$(cat /etc/sensu/conf.d/generated/api-password)
