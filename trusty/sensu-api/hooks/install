@@ -10,5 +10,5 @@ update-rc.d sensu-api defaults
 mkdir -p /etc/sensu/conf.d/generated
 
 if [ ! -f /etc/sensu/conf.d/generated/api-password ]; then
-  openssl rand -hex 32 | tee /etc/sensu/conf.d/generated/api-password
+  openssl rand -hex 32 | tr -d "\n" | tee /etc/sensu/conf.d/generated/api-password
 fi
