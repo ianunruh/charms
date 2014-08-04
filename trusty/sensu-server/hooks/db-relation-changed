@@ -20,4 +20,4 @@ cat > /etc/sensu/conf.d/redis.json <<EOF
 }
 EOF
 
-service sensu-server status && service sensu-server restart || service sensu-server start
+service sensu-server restart || exit 0

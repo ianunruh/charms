@@ -6,9 +6,9 @@ juju-log "amqp-changed: remote unit: $JUJU_REMOTE_UNIT"
 rabbit_vhost=$(config-get rabbitmq-vhost)
 rabbit_user=$(config-get rabbitmq-user)
 rabbit_host=$(relation-get private-address)
-rabbit_pass=$(relation-get password)
+rabbit_password=$(relation-get password)
 
-if [[ -z $rabbit_host ]] || [[ -z $rabbit_pass ]]; then
+if [[ -z $rabbit_host ]] || [[ -z $rabbit_password ]]; then
   juju-log "amqp-changed: private address or password not set"
   exit 0
 fi
@@ -38,4 +38,4 @@ cat > /etc/sensu/conf.d/rabbitmq.json <<EOF
 }
 EOF
 
-service sensu-server status && service sensu-server restart || service sensu-server start
+service sensu-server restart || exit 0
